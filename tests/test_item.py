@@ -12,3 +12,8 @@ def test_calculate_total_price():
     assert test_item1.calculate_total_price() == 6000
     test_item1.apply_discount()
     assert test_item1.price == 1600
+
+def test_string_to_number():
+    assert test_item1.string_to_number("5") == 5
+    assert test_item1.string_to_number("7.0") == 7
+    assert test_item1.string_to_number("8.5") == 8
