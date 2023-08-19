@@ -4,7 +4,7 @@ class Item:
     """
     Класс для представления товара в магазине.
     """
-    pay_rate = 1.0
+    pay_rate = 1
     all = []
 
     def __init__(self, name: str, price: float, quantity: int):
@@ -26,6 +26,11 @@ class Item:
 
     def __str__(self):
         return self.__name
+
+    def __add__(self, other):
+        if not isinstance(other, Item):
+            raise ValueError('Складывать можно только объекты Item и дочерние от них.')
+        return other.quantity + self.quantity
 
     def calculate_total_price(self) -> float:
         """
@@ -52,10 +57,9 @@ class Item:
             self.__name = value
         "Длина наименования товара превышает 10 символов"
 
-
     @classmethod
     def instantiate_from_csv(cls):
-        with open('../src/items.csv', encoding='cp1251') as csvfile:
+        with open('../src/items.csv', encoding='windows-1251') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 cls.all.append(row)
