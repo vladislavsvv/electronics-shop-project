@@ -1,5 +1,4 @@
 from src.item import Item
-from src.phone import Phone
 
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 
