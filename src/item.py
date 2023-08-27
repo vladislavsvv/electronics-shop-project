@@ -1,5 +1,8 @@
 import csv
 
+class InstantiateCSVError(Exception):
+    pass
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -19,7 +22,9 @@ class Item:
         self.price = price
         self.quantity = quantity
 
-        # Item.all.append(self)
+
+        Item.all.append(self)
+
 
     def __repr__(self):
         return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
@@ -59,11 +64,18 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
-        with open('../src/items.csv', encoding='windows-1251') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                cls.all.append(row)
-            return cls
+        try:
+            with open('../src/items.csv', encoding='windows-1251') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    if 'key' not in row or 'key' not in row or 'key' not in row:
+                        raise InstantiateCSVError
+                    cls.all.append(row)
+                return cls
+        except FileNotFoundError:
+            print("FileNotFoundError: Отсутствует файл item.csv")
+        except InstantiateCSVError:
+            print(" InstantiateCSVError: Файл item.csv поврежден")
 
 
     @staticmethod
@@ -71,5 +83,6 @@ class Item:
         f_number = float(number)
         int_number = int(f_number)
         return int_number
+
 
 

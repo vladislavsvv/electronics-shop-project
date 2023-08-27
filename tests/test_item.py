@@ -1,4 +1,6 @@
-from src.item import Item
+import pytest
+
+from src.item import Item, InstantiateCSVError
 
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 
@@ -23,3 +25,7 @@ def test_str_method():
 
 def test_repr_method():
     assert repr(test_item1) == "Item('смартфон', 2000, 3)"
+
+def test_instantiate_from_csv():
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv()
